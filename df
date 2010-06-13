@@ -1,0 +1,11 @@
+#!/bin/sh
+PWD=`dirname "${0}"`
+export DYLD_FALLBACK_LIBRARY_PATH=${PWD}/libs
+export DYLD_FALLBACK_FRAMEWORK_PATH=${PWD}/libs
+cd "${PWD}"; ./dwarfort.exe& # & to not block the shell
+
+# monitor the gamelog file for notifications
+tail -f -n 0 gamelog.txt | ruby log_monitor/log_monitor.rb
+
+# TODO monitor for exit of dwarfort.exe to terminate tail
+
